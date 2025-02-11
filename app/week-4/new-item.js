@@ -14,10 +14,24 @@ export default function NewItem(){
     };
 
     return (
-        <div>
-            <p>Quantity: {quantity}</p>
-            <button onClick={decrement} disabled={quantity === 1}>Decrement</button>
-            <button onClick={increment} disabled={quantity === 20}>Increment</button>
+        <div className="flex justify-center text-center items-start h-screen">
+            <div>
+                <p>Quantity: {quantity}</p>
+                <button 
+                    className={`bg-blue-500 text-white py-2 px-4 rounded w-12 ${quantity === 1 ? 'bg-gray-500 cursor-not-allowed' : 'hover:bg-blue-700'} p-3`} 
+                    onClick={decrement} 
+                    disabled={quantity === 1}
+                >
+                    -
+                </button>
+                <button 
+                    className={`bg-blue-500 text-white py-2 px-4 rounded w-12 ${quantity === 20 ? 'bg-gray-500 cursor-not-allowed' : 'hover:bg-blue-700'} ml-1`} 
+                    onClick={increment} 
+                    disabled={quantity === 20}
+                >
+                    +
+                </button>
+            </div>
         </div>
     );
 }
