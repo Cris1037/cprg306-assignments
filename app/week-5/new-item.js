@@ -5,6 +5,12 @@ export default function NewItem(){
 
     const [quantity, setQuantity] = useState(1);
 
+    const [name, setName] = useState("");
+
+    const [category, setCategory] = useState("produce");
+
+
+
     const increment = () => {
         setQuantity(prevQuantity => Math.min(prevQuantity + 1, 20));
     };
@@ -13,10 +19,30 @@ export default function NewItem(){
         setQuantity(prevQuantity => Math.max(prevQuantity - 1, 1));
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const item =
+        {
+            name: name,
+            quantity: quantity,
+            category: category,
+
+        }
+
+        console.log(item);
+
+        alert(`Name: ${name}, Quantity: ${quantity}, Category: new`);
+        setName("");
+        setQuantity(1);
+    }
+
     return (
-        <div className="flex justify-center text-center items-start h-screen">
+        <div className="flex justify-center text-center items-start h-screen m-10">
             <div>
-                <p>Quantity: {quantity}</p>
+                <input className="border-2 border-black-600" type='text' value={name} onChange={(e) => setName(e.target.value)} required ></input>
+
+                <p className="text-2xl">Quantity: {quantity}</p>
                 <button 
                     className={`bg-blue-500 text-white py-2 px-4 rounded w-12 ${quantity === 1 ? 'bg-gray-500 cursor-not-allowed' : 'hover:bg-blue-700'} p-3`} 
                     onClick={decrement} 
@@ -31,6 +57,19 @@ export default function NewItem(){
                 >
                     +
                 </button>
+                <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                    <option value="produce">Produce</option>
+                    <option value="dairy">Dairy</option>
+                    <option value="bakery">Bakery</option>
+                    <option value="meat">Meat</option>
+                    <option value="frozen foods">Frozen Foods</option>
+                    <option value="canned goods">Canned Goods</option>
+                    <option value="dry goods">Dry Goods</option>
+                    <option value="beverages">Beverages</option>
+                    <option value="snacks">Snacks</option>
+                    <option value="household">Household</option>
+                    <option value="other">Other</option>
+                </select>
             </div>
         </div>
     );
