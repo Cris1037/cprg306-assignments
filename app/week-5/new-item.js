@@ -40,7 +40,7 @@ export default function NewItem(){
     return (
         <div className="flex justify-center text-center items-start h-screen m-10">
             <div>
-                <input className="border-2 border-black-600" type='text' value={name} onChange={(e) => setName(e.target.value)} required ></input>
+                <input className="border-2 border-black" type='text' value={name} onChange={(e) => setName(e.target.value)} required ></input>
 
                 <p className="text-2xl">Quantity: {quantity}</p>
                 <button 
@@ -70,6 +70,7 @@ export default function NewItem(){
                     <option value="household">Household</option>
                     <option value="other">Other</option>
                 </select>
+                <button className="bg-blue-500 text-white p-2 rounded" onClick={handleSubmit}>Submit</button>
             </div>
         </div>
     );
