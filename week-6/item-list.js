@@ -7,35 +7,17 @@ import itemsData from './items.json';
 export default function ItemList() {
   const [sortBy, setSortBy] = useState("name");
 
-  const handleSortBy = (sortBy) => {
-    setSortBy(sortBy);
-  }
-
-  const sortItems = [...itemsData].sort((a, b) => {
+  // Copy and sort the items based on the sortBy state.
+  const sortedItems = [...itemsData].sort((a, b) => {
     if (sortBy === "name") {
-      if (a.name < b.name) {
-        return -1;
-      }
-      if (a.name > b.name) {
-        return 1;
-      }
-      return 0;
-    } 
-    else if (sortBy === "category") {
-      if (a.category < b.category) {
-        return -1;
-      }
-      if (a.category > b.category) {
-        return 1;
-      }
-    }
-    else {
+      return a.name.localeCompare(b.name);
+    } else if (sortBy === "category") {
+      return a.category.localeCompare(b.category);
+    } else {
+      // For "group", we will handle grouping separately below.
       return 0;
     }
   });
-
-  // Copy and sort the items based on the sortBy state.
-  
 
   // Group items by category (for the extra challenge)
   const groupedItems = sortedItems.reduce((acc, item) => {
@@ -50,16 +32,22 @@ export default function ItemList() {
     <div>
       <div className="flex gap-2 mb-4">
         <button
-          onClick={() => handleSortBy("name")}
+          onClick={() => setSortBy("name")}
           className={`${sortBy === "name" ? "bg-blue-500" : "bg-gray-500"} px-4 py-2 rounded`}
         >
           Sort by Name
         </button>
         <button
-          onClick={() => handleSortBy("category")}
+          onClick={() => setSortBy("category")}
           className={`${sortBy === "category" ? "bg-blue-500" : "bg-gray-500"} px-4 py-2 rounded`}
         >
           Sort by Category
+        </button>
+        <button
+          onClick={() => setSortBy("group")}
+          className={`${sortBy === "group" ? "bg-blue-500" : "bg-gray-500"} px-4 py-2 rounded`}
+        >
+          Group by Category
         </button>
       </div>
 
