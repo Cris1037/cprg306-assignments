@@ -1,17 +1,15 @@
+"use client";
 import { useState } from 'react';
-import Item from './item'; // The Item component
-import itemsData from './items.json'; // Import the items from the JSON file
+import Item from './item';
+import itemsData from './items.json';
 
 function ItemList() {
-  // Initialize the state variable "sortBy" with an initial value of "name"
   const [sortBy, setSortBy] = useState('name');
 
-  // Create a sorted copy of the items based on the "sortBy" state
   const sortedItems = [...itemsData].sort((a, b) => {
     if (sortBy === 'name') {
       return a.name.localeCompare(b.name);
-    } 
-    else if (sortBy === 'category') {
+    } else if (sortBy === 'category') {
       return a.category.localeCompare(b.category);
     }
     return 0;
@@ -20,7 +18,6 @@ function ItemList() {
   return (
     <div>
       <div>
-        {/* Create sort buttons with conditional styling based on the current sort preference */}
         <button
           onClick={() => setSortBy('name')}
           style={{ backgroundColor: sortBy === 'name' ? 'lightblue' : 'grey' }}
@@ -34,11 +31,10 @@ function ItemList() {
           Sort by Category
         </button>
       </div>
-      {/* Render the sorted items using the map function */}
       <ul className="grid gap-2">
         {sortedItems.map((item) => (
           <Item
-            key={item.id}  // Assumes each item has a unique "id" property
+            key={item.id}
             name={item.name}
             quantity={item.quantity}
             category={item.category}
@@ -49,4 +45,4 @@ function ItemList() {
   );
 }
 
-export default ItemList; 
+export default ItemList;
