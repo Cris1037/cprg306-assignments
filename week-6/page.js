@@ -1,4 +1,3 @@
-// /app/week-6/page.js
 import ItemList from './item-list';
 
 export default function Page() {

@@ -1,60 +1,99 @@
-// /app/week-6/item-list.js
-
 "use client";
+
 import { useState } from 'react';
 import Item from './item';
 import itemsData from './items.json';
 
 export default function ItemList() {
-  const [sortBy, setSortBy] = useState('name');
+  const [sortBy, setSortBy] = useState("name");
 
-  // Copy and sort the items based on sortBy value
-  const sortedItems = [...itemsData].sort((a, b) => {
-    if (sortBy === 'name') {
-      return a.name.localeCompare(b.name);
-    } else if (sortBy === 'category') {
-      return a.category.localeCompare(b.category);
+  const handleSortBy = (sortBy) => {
+    setSortBy(sortBy);
+  }
+
+  const sortItems = [...itemsData].sort((a, b) => {
+    if (sortBy === "name") {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    } 
+    else if (sortBy === "category") {
+      if (a.category < b.category) {
+        return -1;
+      }
+      if (a.category > b.category) {
+        return 1;
+      }
     }
-    return 0;
+    else {
+      return 0;
+    }
   });
+
+  // Copy and sort the items based on the sortBy state.
+  
+
+  // Group items by category (for the extra challenge)
+  const groupedItems = sortedItems.reduce((acc, item) => {
+    if (!acc[item.category]) {
+      acc[item.category] = [];
+    }
+    acc[item.category].push(item);
+    return acc;
+  }, {});
 
   return (
     <div>
-      {/* Sort Buttons */}
-      <div className="flex space-x-4 mb-4">
+      <div className="flex gap-2 mb-4">
         <button
-          onClick={() => setSortBy('name')}
-          className={`px-4 py-2 rounded ${
-            sortBy === 'name'
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 text-gray-800'
-          }`}
+          onClick={() => handleSortBy("name")}
+          className={`${sortBy === "name" ? "bg-blue-500" : "bg-gray-500"} px-4 py-2 rounded`}
         >
           Sort by Name
         </button>
         <button
-          onClick={() => setSortBy('category')}
-          className={`px-4 py-2 rounded ${
-            sortBy === 'category'
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 text-gray-800'
-          }`}
+          onClick={() => handleSortBy("category")}
+          className={`${sortBy === "category" ? "bg-blue-500" : "bg-gray-500"} px-4 py-2 rounded`}
         >
           Sort by Category
         </button>
       </div>
 
-      {/* Render Sorted Items */}
-      <ul className="grid gap-2">
-        {sortedItems.map((item) => (
-          <Item
-            key={item.id}
-            name={item.name}
-            quantity={item.quantity}
-            category={item.category}
-          />
-        ))}
-      </ul>
+      {sortBy !== "group" ? (
+        <ul className="grid gap-2">
+          {sortedItems.map(item => (
+            <Item
+              key={item.id}
+              name={item.name}
+              quantity={item.quantity}
+              category={item.category}
+            />
+          ))}
+        </ul>
+      ) : (
+        // Grouped view: items grouped and sorted alphabetically within each category.
+        Object.entries(groupedItems).map(([category, items]) => (
+          <div key={category} className="mb-6">
+            <h2 className="text-2xl font-bold text-white capitalize mb-2">
+              {category}
+            </h2>
+            <ul className="grid gap-2">
+              {items.sort((a, b) => a.name.localeCompare(b.name)).map(item => (
+                <Item
+                  key={item.id}
+                  name={item.name}
+                  quantity={item.quantity}
+                  category={item.category}
+                />
+              ))}
+            </ul>
+          </div>
+        ))
+      )}
     </div>
   );
 }
