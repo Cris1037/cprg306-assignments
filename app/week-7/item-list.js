@@ -25,8 +25,8 @@ export default function ItemList({ items }) {
   }, {});
 
   return (
-    <div className='justify-start items-start '>
-      <div className="flex gap-2 mb-4">
+    <div className='justify-start items-start'>
+      <div className="flex flex-row gap-2 mb-4">
         <button
           onClick={() => setSortBy("name")}
           className={`${sortBy === "name" ? "bg-blue-500" : "bg-gray-500"} px-4 py-2 rounded`}
@@ -48,7 +48,7 @@ export default function ItemList({ items }) {
       </div>
 
       {sortBy !== "group" ? (
-        <ul className="grid gap-2">
+        <ul className="flex flex-col gap-2">
           {sortedItems.map(item => (
             <Item
               key={item.id}
@@ -64,7 +64,7 @@ export default function ItemList({ items }) {
             <h2 className="text-2xl font-bold text-white capitalize mb-2">
               {category}
             </h2>
-            <ul className="grid gap-2">
+            <ul className="flex flex-col gap-2">
               {items.sort((a, b) => a.name.localeCompare(b.name)).map(item => (
                 <Item
                   key={item.id}

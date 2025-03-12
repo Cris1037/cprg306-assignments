@@ -32,7 +32,7 @@ export default function NewItem({ onAddItem }) {
     };
 
     return (
-        <div className="flex justify-start text-center items-start h-screen m-10">
+        <div className="flex justify-start text-center items-start m-10">
             <div className="flex flex-col">
                 <input className="border-2 border-black mb-4" type='text' value={name} onChange={(e) => setName(e.target.value)} required ></input>
                 <div className="flex">
