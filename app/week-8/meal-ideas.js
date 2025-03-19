@@ -24,8 +24,8 @@ const MealIdeas = ({ ingredient }) => {
 
     return (
         <div>
-            <h1>Meal Ideas</h1>
-            <ul>
+            <h1 className='text-white'>Meal Ideas</h1>
+            <ul className='text-white'>
                 {meals.map(meal => (
                     <li key={meal.idMeal}>
                         <h2>{meal.strMeal}</h2>
