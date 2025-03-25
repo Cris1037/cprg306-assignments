@@ -10,18 +10,18 @@ const Page = () => {
     const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
     return (
-        <div>
+        <div className="flex flex-col place-items-center gap-4 ">
             {user === null ? (
                 // If the user is not logged in, display the login button
-                <button onClick={gitHubSignIn}>Login with GitHub</button>
+                <button className="m-2 bg-blue-500 text-white py-2 rounded w-40 text-center" onClick={gitHubSignIn}>Login with GitHub</button>
             ) : (
                 // If the user is logged in, display the welcome message, logout button, and shopping list link
-                <div>
-                    <p>
+                <div className="flex flex-col place-items-center gap-4">
+                    <p className="text-2xl">
                         Welcome, {user.displayName} ({user.email})
                     </p>
-                    <button onClick={firebaseSignOut}>Logout</button>
-                    <a href="./week-9/shopping-list">Go to Shopping List</a>
+                    <button className="m-2 bg-blue-500 text-white py-2 rounded w-40" onClick={firebaseSignOut}>Logout</button>
+                    <a className="bg-blue-500 text-white py-2 rounded w-40 text-center" href="./week-9/shopping-list">Go to Shopping List</a>
                 </div>
             )}
         </div>
