@@ -15,7 +15,7 @@ const ProtectedRoute = ({ children }) => {
             ) 
             : 
             (
-            <div className="justify-center align-middle">
+            <div className="text-center align-middle">
                 <p>Loading...</p>
             </div>
             )
