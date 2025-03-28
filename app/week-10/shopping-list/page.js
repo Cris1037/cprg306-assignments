@@ -1,11 +1,12 @@
 
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NewItem from './new-item';
 import ItemList from './item-list';
 import itemsData from './items.json';
 import MealIdeas from './meal-ideas';
 import ProtectedRoute from '../_utils/protected-route';
+import { getUserItems, addUserItem } from '../_service/shopping-list-service';
 
 
 
@@ -15,6 +16,16 @@ export default function Page() {
     
     const [items, setItems] = useState(itemsData);
     const [selectedItemName, setSelectedItemName] = useState('');
+
+    const loadItems = async (user) => {
+        if (!user || !user.uid) return;
+        try {
+            const userItems = await getUserItems(user.uid);
+            setItems(userItems);
+        } catch (error) {
+            console.error('Failed to load items:', error);
+        }
+    };
 
     const handleItemSelect = (itemName) => {
         const cleanedItemName = itemName.split(',')[0].trim().replace(/[^a-zA-Z\s]/g, '');
