@@ -21,7 +21,7 @@ const Page = () => {
                         Welcome, {user.displayName} ({user.email})
                     </p>
                     <button className="m-2 bg-blue-500 text-white py-2 rounded w-40" onClick={firebaseSignOut}>Logout</button>
-                    <a className="bg-blue-500 text-white py-2 rounded w-40 text-center" href="./week-9/shopping-list">Go to Shopping List</a>
+                    <a className="bg-blue-500 text-white py-2 rounded w-40 text-center" href="./week-10/shopping-list">Go to Shopping List</a>
                 </div>
             )}
         </div>
